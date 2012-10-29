@@ -1,0 +1,44 @@
+<h1>Editing keyword_tweet</h1>
+
+<% form_for(@keyword_tweet) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :keyword_id %><br />
+    <%= f.text_field :keyword_id %>
+  </p>
+  <p>
+    <%= f.label :tweet_text %><br />
+    <%= f.text_field :tweet_text %>
+  </p>
+  <p>
+    <%= f.label :tweet_id %><br />
+    <%= f.text_field :tweet_id %>
+  </p>
+  <p>
+    <%= f.label :source %><br />
+    <%= f.text_field :source %>
+  </p>
+  <p>
+    <%= f.label :user %><br />
+    <%= f.text_field :user %>
+  </p>
+  <p>
+    <%= f.label :created_at %><br />
+    <%= f.datetime_select :created_at %>
+  </p>
+  <p>
+    <%= f.label :tinyurl %><br />
+    <%= f.text_field :tinyurl %>
+  </p>
+  <p>
+    <%= f.label :original_url %><br />
+    <%= f.text_field :original_url %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @keyword_tweet %> |
+<%= link_to 'Back', keyword_tweets_path %>

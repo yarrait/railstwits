@@ -1,0 +1,24 @@
+<h1>Listing keyword_urls</h1>
+
+<table>
+  <tr>
+    <th>Keyword tweet</th>
+    <th>Tinyurl</th>
+    <th>Original url</th>
+  </tr>
+
+<% @keyword_urls.each do |keyword_url| %>
+  <tr>
+    <td><%=h keyword_url.keyword_tweet_id %></td>
+    <td><%=h keyword_url.tinyurl %></td>
+    <td><%=h keyword_url.original_url %></td>
+    <td><%= link_to 'Show', keyword_url %></td>
+    <td><%= link_to 'Edit', edit_keyword_url_path(keyword_url) %></td>
+    <td><%= link_to 'Destroy', keyword_url, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New keyword_url', new_keyword_url_path %>

@@ -1,0 +1,41 @@
+module KeywordsHelper
+
+  def get_hash_link(tag)
+      s = []
+      hash = []
+      link = []
+      s = tag.split(" ")
+
+      len = s.length
+      i = 0
+      j = 0
+      k = 0
+      z = 0
+      x = 0
+      final_link = "0"
+      final_hash = "0"
+
+      while i < len
+        if s[i].include? "#"
+          hash[j] = s[i]
+          j += 1
+        end
+        if s[i].include? "http://"
+          link[k] = s[i]
+          k += 1
+        end
+        i += 1
+      end
+
+      while z < link.length
+        final_link += "," + link[z].to_s
+        z += 1
+      end
+      while x < hash.length
+        final_hash += "," + hash[x].to_s
+        x += 1
+      end
+      return final_link,final_hash
+  end
+
+end

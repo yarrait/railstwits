@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  keyword_id: 1
+  keyword_tweet_id: 1
+  user: MyString
+
+two:
+  keyword_id: 1
+  keyword_tweet_id: 1
+  user: MyString

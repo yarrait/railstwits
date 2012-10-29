@@ -1,0 +1,18 @@
+<p>
+  <b>Type is:</b>
+  <%=h @comment.type_is %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @comment.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @comment.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_comment_path(@comment) %> |
+<%= link_to 'Back', comments_path %>

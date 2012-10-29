@@ -1,0 +1,23 @@
+<h1>New keyword_url</h1>
+
+<% form_for(@keyword_url) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :keyword_tweet_id %><br />
+    <%= f.text_field :keyword_tweet_id %>
+  </p>
+  <p>
+    <%= f.label :tinyurl %><br />
+    <%= f.text_field :tinyurl %>
+  </p>
+  <p>
+    <%= f.label :original_url %><br />
+    <%= f.text_field :original_url %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', keyword_urls_path %>

@@ -1,0 +1,1 @@
+<%= link_to 'Add keyword', :controller => 'keywords', :action => 'new' %>

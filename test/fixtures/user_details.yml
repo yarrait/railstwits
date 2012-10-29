@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  keyword_id: 1
+  keyword_tweet_id: 1
+  name: MyString
+  location: MyString
+  user_created_at: 2010-08-19
+  profile_image_url: MyText
+  web_url: MyText
+  followers: 1
+  following: 1
+  description: MyText
+  screen_name: MyString
+
+two:
+  keyword_id: 1
+  keyword_tweet_id: 1
+  name: MyString
+  location: MyString
+  user_created_at: 2010-08-19
+  profile_image_url: MyText
+  web_url: MyText
+  followers: 1
+  following: 1
+  description: MyText
+  screen_name: MyString

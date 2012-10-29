@@ -1,0 +1,270 @@
+class KeywordsController < ApplicationController
+include KeywordsHelper
+gem 'twitter4r'
+require 'twitter'
+require 'expurrel'
+require 'longurl'
+  # GET /keywords
+  # GET /keywords.xml
+  def index
+    @keywords = Keyword.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @keywords }
+    end
+  end
+
+  # GET /keywords/1
+  # GET /keywords/1.xml
+  def show
+    @keyword = Keyword.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.xml  { render :xml => @keyword }
+    end
+  end
+
+  # GET /keywords/new
+  # GET /keywords/new.xml
+  def new
+    @keyword = Keyword.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @keyword }
+    end
+  end
+
+  # GET /keywords/1/edit
+  def edit
+    @keyword = Keyword.find(params[:id])
+  end
+
+  # POST /keywords
+  # POST /keywords.xml
+  def create
+    @all_keywords = Keyword.find(:all)
+    @keyword = Keyword.new(params[:keyword])
+    @got_keyword = 0
+    if !@all_keywords.blank?
+      for keyword in @all_keywords
+        if params[:keyword][:name].to_s == keyword.name.to_s
+          @got_keyword = 1
+          @keyword_tweets = KeywordTweet.find_all_by_keyword_id(keyword.id)
+
+          for key in @keyword_tweets
+            @urls = KeywordUrl.find_all_by_keyword_tweet_id(key.id)
+            @hashtags = KeywordHashtag.find_all_by_keyword_tweet_id(key.id)
+            @users = KeywordUser.find_all_by_keyword_tweet_id(key.id)
+            if !@urls.blank?
+              for url in @urls
+                url.delete
+              end
+            end
+            if !@hashtags.blank?
+              for hashtag in @hashtags
+                hashtag.delete
+              end
+            end
+            if !@users.blank?
+              for user in @users
+                user.delete
+              end
+            end
+            key.delete #delete tweets from keyword_tweets
+          end
+          client = Twitter::Client.new
+          @tag = client.search(:q => "#{@keyword.name}", :rpp => 100)
+          for tag in @tag
+            @keytweet = KeywordTweet.new
+            puts tag
+            @keytweet.keyword_id = keyword.id
+            @keytweet.tweet_text = tag.text      
+            @keytweet.tweet_id = tag.id
+            @keytweet.source = tag.source
+            @keytweet.created_at = tag.created_at
+            @keytweet.user = tag.from_user
+            @keytweet.save
+            @val = get_hash_link(tag.text,@keytweet.id)
+            puts "NAVU 6"
+ #           @keytweet.hashtag = @val[1]
+            @keytweet.update_attribute('tinyurl',@val[0])
+            @keytweet.update_attribute('hashtag',@val[1])
+           end
+      
+          end
+        end
+          if @got_keyword == 0
+            if @keyword.save
+                client = Twitter::Client.new
+                @tag = client.search(:q => "#{@keyword.name}", :rpp => 100)
+                for tag in @tag
+                  @keytweet = KeywordTweet.new
+                  puts tag
+                  @keytweet.keyword_id = @keyword.id
+                  @keytweet.tweet_text = tag.text      
+                  @keytweet.tweet_id = tag.id
+                  @keytweet.source = tag.source
+                  @keytweet.created_at = tag.created_at
+                  @keytweet.user = tag.from_user
+                  
+                  @keytweet.save
+                  @val = get_hash_link(tag.text,@keytweet.id)
+                  puts @val[1]
+                  @keytweet.update_attribute('tinyurl',@val[0])
+                  @keytweet.update_attribute('hashtag',@val[1])
+                 end
+            end
+          end
+          respond_to do |format|
+            flash[:notice] = 'Keyword was successfully created.'
+            format.html { redirect_to(@keyword) }
+            format.xml  { render :xml => @keyword, :status => :created, :location => @keyword }
+      end
+    else   
+      if @keyword.save
+          client = Twitter::Client.new
+          @tag = client.search(:q => "#{@keyword.name}", :rpp => 100)
+          for tag in @tag
+            @keytweet = KeywordTweet.new
+            puts tag
+            @keytweet.keyword_id = @keyword.id
+            @keytweet.tweet_text = tag.text      
+            @keytweet.tweet_id = tag.id
+            @keytweet.source = tag.source
+            @keytweet.created_at = tag.created_at
+            @keytweet.user = tag.from_user
+            @keytweet.save
+            @val = get_hash_link(tag.text,@keytweet.id)
+            puts @val[0]
+#            @keytweet.tinyurl = @val[0]
+            puts @val[1]
+ #           @keytweet.hashtag = @val[1]
+            @keytweet.update_attribute('tinyurl',@val[0])
+            @keytweet.update_attribute('hashtag',@val[1])
+           end
+          respond_to do |format|
+            flash[:notice] = 'Keyword was successfully created.'
+            format.html { redirect_to(@keyword) }
+            format.xml  { render :xml => @keyword, :status => :created, :location => @keyword }
+          end
+      else
+         respond_to do |format|
+            format.html { render :action => "new" }
+            format.xml  { render :xml => @keyword.errors, :status => :unprocessable_entity }
+          end
+      end    
+        
+    end
+
+  end
+
+  def get_hash_link(tag,tweetid)
+      s = []
+      hash = []
+      link = []
+      s = tag.split(" ")
+
+      len = s.length
+      i = 0
+      j = 0
+      k = 0
+      z = 0
+      x = 0
+      final_link = "0"
+      final_hash = "0"
+
+      while i < len
+        if s[i].include? "#"
+          hash[j] = s[i]
+          j += 1
+        end
+        if s[i].include? "http://"
+          link[k] = s[i]
+          k += 1
+        end
+        i += 1
+      end
+
+      while z < link.length
+      puts "link is #{link[z]}"
+      sam = ''
+      @got_url = 0
+      sam = link[z].to_s
+      begin
+        e = LongURL::Expander.new
+        @org_url = e.expand(sam)
+        @all_urls = KeywordUrl.find(:all)
+        if !@all_urls.blank?
+          for url in @all_urls
+            if url.original_url.to_s == @org_url.to_s
+              url.update_attribute('counter',url.counter+1)
+              @got_url = 1
+            end
+          end
+          if @got_url == 0
+            @keyurl = KeywordUrl.new
+            @keyurl.keyword_tweet_id = tweetid
+            @keyurl.tinyurl = link[z]
+            
+            @keyurl.original_url = @org_url
+            @keyurl.save
+          end
+        else
+          @keyurl = KeywordUrl.new
+          @keyurl.keyword_tweet_id = tweetid
+          @keyurl.tinyurl = link[z]
+          
+          @keyurl.original_url = @org_url
+          @keyurl.save
+        end
+      rescue Exception => exc
+         puts "Error: #{exc.inspect}" 
+         @temp_url = TemporaryUrls.new
+         @temp_url.keyword_tweet_id = tweetid
+         @temp_url.tinyurl = link[z]
+         @temp_url.save
+      end
+
+        final_link += "," + link[z].to_s
+        z += 1
+      end
+      while x < hash.length
+        final_hash += "," + hash[x].to_s
+        x += 1
+      end
+      return final_link,final_hash
+  end
+
+
+  # PUT /keywords/1
+  # PUT /keywords/1.xml
+  def update
+    @keyword = Keyword.find(params[:id])
+
+    respond_to do |format|
+      if @keyword.update_attributes(params[:keyword])
+        flash[:notice] = 'Keyword was successfully updated.'
+        format.html { redirect_to(@keyword) }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @keyword.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /keywords/1
+  # DELETE /keywords/1.xml
+  def destroy
+    @keyword = Keyword.find(params[:id])
+    @keyword.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(keywords_url) }
+      format.xml  { head :ok }
+    end
+  end
+end

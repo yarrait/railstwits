@@ -1,0 +1,34 @@
+<h1>Listing keyword_tweets</h1>
+
+<table>
+  <tr>
+    <th>Keyword</th>
+    <th>Tweet text</th>
+    <th>Tweet</th>
+    <th>Source</th>
+    <th>User</th>
+    <th>Created at</th>
+    <th>Tinyurl</th>
+    <th>Original url</th>
+  </tr>
+
+<% @keyword_tweets.each do |keyword_tweet| %>
+  <tr>
+    <td><%=h keyword_tweet.keyword_id %></td>
+    <td><%=h keyword_tweet.tweet_text %></td>
+    <td><%=h keyword_tweet.tweet_id %></td>
+    <td><%=h keyword_tweet.source %></td>
+    <td><%=h keyword_tweet.user %></td>
+    <td><%=h keyword_tweet.created_at %></td>
+    <td><%=h keyword_tweet.tinyurl %></td>
+    <td><%=h keyword_tweet.original_url %></td>
+    <td><%= link_to 'Show', keyword_tweet %></td>
+    <td><%= link_to 'Edit', edit_keyword_tweet_path(keyword_tweet) %></td>
+    <td><%= link_to 'Destroy', keyword_tweet, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New keyword_tweet', new_keyword_tweet_path %>

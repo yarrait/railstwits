@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  keyword_url_id: 1
+  user: MyString
+  tweeted_at: 2010-08-17
+  tags: MyString
+  retweet_user: MyString
+
+two:
+  keyword_url_id: 1
+  user: MyString
+  tweeted_at: 2010-08-17
+  tags: MyString
+  retweet_user: MyString

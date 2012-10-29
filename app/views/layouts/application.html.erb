@@ -1,0 +1,88 @@
+      <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-US">
+
+  <head>
+		<title>Rails Twits - Ruby on rails Twitter Analytics</title>
+	<!--	<script type="text/javascript" src="http://use.typekit.com/njm2acr.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>-->
+
+    <meta title="Rails Twits - Ruby on rails Twitter Analytics"></title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="resource-type" content="document" />
+    <meta http-equiv="content-language" content="en-us" />
+    <meta name="copyright" content="Copyright (c) <%= Date.today.year -%> yarrait. All Rights Reserved." />
+
+    <meta name="keywords" content="railstwits,ruby on rails,active record,active resource,action controller,action pack,action mailer,ruby on rails model,ruby on rails helpers,ruby on rails controller<%#= @meta_keywords if !@meta_keywords.blank? %>" />
+	
+		<meta name="description" content="<%#= @meta_description if !@meta_description.blank? %>" />
+
+		<meta name="ICBM" content="23.039574,72.56602" />
+		<meta name="geo.region" content="India" />
+		<meta name="geo.placename" content="Gujarat" />
+		<meta name="geo.position" content="23.039574,72.56602" />
+		<meta name="robots" content="index,follow" />
+
+		<meta name="dc.title" content="railstwits" />
+		<meta name="dc.creator" content="railstwits" />
+		<meta name="dc.subject" scheme="gccore" content="Railstwits" />
+		<meta name="dc.language" scheme="ISO639-2" content="ENG" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript"></script>
+		<script src="/javascripts/vtip-min.js" type="text/javascript"></script>
+		<link type="text/css" rel="stylesheet" media="screen" href="/stylesheets/home.css" />
+		<link type="text/css" rel="stylesheet" media="screen" href="/stylesheets/vtip.css" />
+  </head>
+
+      <body class="body">	
+			<div class="outerpage">
+				<!--<div class="top_img"></div>-->
+						<div class="innerpage">
+					<!-- ##### Header ##### -->    
+					 <div class="header">
+							<a href="http://www.railstwits.com"><div class="rslogo"></div></a>
+							<h1 class="logo_main"><a href="http://www.railstwits.com"><span class="rails">Rails&nbsp;</span><span class="logo_twits">Twits</span></a></h1>
+							<div class="primary_links">
+								<div class="primary_left"></div>
+								<div class="primary_mid">							
+									<% if @controller.controller_name == "home" %>
+										<span class="active"><a href="/">Home</a></span><span class="header_border"></span>
+									<% else %>
+										<span class="inactive"><a href="/">Home</a></span><span class="header_border"></span>
+									<% end %>
+									<% if @controller.controller_name == "keyword_tweets" && @controller.action_name == "tweetuser" %>
+										<span class="active"><%= link_to 'Twitter Users', tweetuser_url %></span><span class="header_border"></span>
+									<% else %>
+										<span class="inactive"><%= link_to 'Twitter Users', tweetuser_url %></span><span class="header_border"></span>
+									<% end %>
+									<% if @controller.controller_name == "keyword_tweets" && @controller.action_name == "websites" %>
+										<span class="active"><%= link_to 'Twitter Websites', websites_url %></span>
+									<% else %>
+										<span class="inactive"><%= link_to 'Twitter Websites', websites_url %></span>
+									<% end %>
+								</div>
+								<div class="primary_right"></div>
+							</div>	
+						<div class="flash">
+							<% if !flash[:notice].blank? %>
+								<%= flash[:notice] %>
+							<% end %>
+						</div>
+					 
+						  </div>
+
+						  <!-- ##### Main Copy ##### -->
+
+									<!-- ##### Main Copy ##### -->
+
+							<div class="middle_content">
+							   <%= yield %>
+									<div class="footer">
+											<div class="footer_text">Copyright &nbsp;&copy;&nbsp; <%= Date.today.year -%> <a href="http://www.yarrait.com" target="_blank"> Yarrait </a> All Rights Reserved.</div>
+									</div>
+						  </div>
+							
+			</div><!-- innerpage ends-->
+		</div><!-- outerpage ends -->
+   </body>
+</html>

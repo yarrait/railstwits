@@ -1,0 +1,147 @@
+	<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript"></script>-->
+    <script src="http://platform.twitter.com/anywhere.js?id=9SZ9z2BrciTnydrUgJfLqA&v=1" type="text/javascript"></script>
+<script type="text/javascript">
+  twttr.anywhere(function (T) {
+    T.hovercards({ expanded: true });
+  });
+</script>
+	<script src="/javascripts/jquery.js" type="text/javascript"></script>
+<script src="/javascripts/jquery.js" type="text/javascript"></script>
+	<script src="/javascripts/jquery.flot.js" type="text/javascript"></script>
+	<!--<script src="/javascripts/dygraph-combined.js" type="text/javascript"></script>-->
+	<script type="text/javascript" src="http://danvk.org/dygraphs/dygraph-combined.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function(){
+
+/*x="5"+"-"+5;
+		var d3 = [[0,""],
+	<% for hash in @hashtag_date %>
+			<% a = hash.hashtag_date.strftime('%d/%m') %>
+		  [<%= a %> , <%= hash.date_counter %>],
+		<% end %>
+		]
+    
+ 
+
+		//jQuery.plot(jQuery("#placeholder"), [ { label: "Foo", data: d3 } ]);*/
+
+
+			jQuery('#tweetid').click(function(){
+				jQuery(this).css({borderBottom:'1px solid #e1b378'});
+				jQuery('#tweet_contents').show();
+				jQuery('#analytics').css({borderBottom:'none'});
+				jQuery('#tweetid .heading h3').css({'color':'#000000','font-size':'18px'});
+				jQuery('#analytics .heading h3').css({'color':'#996633','font-size':'18px'});
+				jQuery('#analytics_contents').hide();
+			});
+			jQuery('#analytics').click(function(){
+				jQuery('#tweet_contents').hide();
+				jQuery('#tweetid').css({borderBottom:'none'});
+				jQuery('#analytics').css({borderBottom:'1px solid #e1b378'});
+				jQuery('#analytics .heading h3').css({'color':'#000000','font-size':'18px'});
+				jQuery('#tweetid .heading h3').css({'color':'#996633','font-size':'18px'});
+				jQuery('#analytics_contents').show();
+			});
+		});
+	</script>
+<!--<div class="middle_content">-->
+	<div class="left_content">
+		<div class="contents border">
+			<div class="heading heading_comm"><h2 class="title"><%= @hash %></h2></div>
+			<div class="content_inn">
+				<div class="heading"><h2 class="ur_title"><a href="http://search.twitter.com/search?q=<%=@name%>"><%= @hash %></a></h2></div>
+
+
+<!--<div id="placeholder" style="width:300px;height:300px;float:left;"></div>-->
+
+		<div class="tweet_ana_main">
+						<div class="tab_border"></div>
+						<div id="tweetid" style="float: left;cursor:pointer;width:15%;border-bottom:1px solid #e1b378;"><div class="heading tweet_ana"><h3 style="font-size:18px;color:#000000;">Tweets</h3></div></div>
+						<div class="part" style="float:left;"></div>
+						<div id="analytics" style="float: left; width: 17%;cursor:pointer;"><div class="heading tweet_ana"><h3 style="color:#996633;font-size:18px;">Analytics</h3></div></div>
+
+							<div id="tweet_contents">
+									<% if !@hash_detail.blank? %>
+										<% for hashdetail in @hash_detail %>
+											<% tweeturl = get_tweet_url(hashdetail.keyword_tweet_id) %>
+ 											  <%  @user_detail = get_tweet_user_detail(hashdetail.keyword_tweet.id) %>
+												<% if !tweeturl.blank? %>
+														<div class="url_content">
+															<div class="url_count">
+																<%#= tweeturl.counter %><!--<br />Tweets-->
+															</div>
+															<div class="ur_contents">
+																<div class="ur_title">
+																	<h3><%= link_to tweeturl.url_title, tweeturl_url(:tweetid => tweeturl.keyword_tweet.id) %></h3>
+																</div>
+																<div class="ur_website_content">
+																	<span class="web_name"><%= tweeturl.url_website.upcase %></span>&nbsp;-&nbsp;<% if !tweeturl.url_content.blank? %><%= tweeturl.url_content %><% else %><%= tweeturl.url_title %><% end %>
+																</div>
+															</div><!-- ur_contents ends -->
+														</div><!-- url_content ends -->
+												<% else %>
+													<div class="url_content">
+															<div class="url_count">
+																<!--No<br />Url-->
+															</div>
+														<div class="ur_contents">	
+															<% if !@user_detail.blank? %><a href="/railstwits/user/<%=@user_detail.screen_name%>" class='twitter-anywhere-user'><span class="user"><%= hashdetail.keyword_tweet.user %></span></a><% else %><span class="user"><%= hashdetail.keyword_tweet.user %></span><% end %>&nbsp;says:&nbsp;
+															<%= hashdetail.keyword_tweet.tweet_text %>
+														</div>
+													</div>
+												<% end %>
+										<% end %>
+									<% end %>
+							</div><!-- tweetid ends -->
+
+							<div id="analytics_contents" style="display:none;">
+								<div id="graphdiv" style="float:left;width:300px;height:200px;left:99px;"></div>
+								<script type="text/javascript">
+									g = new Dygraph(
+
+										// containing div
+										document.getElementById("graphdiv"),
+
+										// CSV or path to a CSV file.
+										"Date,Counter\n" +
+										<% for hash in @hashtag_date %>
+											<% a = hash.hashtag_date.strftime('%d/%m') %>
+											"<%= hash.hashtag_date %> , <%= hash.date_counter %>\n" +
+										<% end %>
+								<%# @last = @hashtag_date.first.hashtag_date %>
+										"<%= Date.tomorrow %>,0\n"
+									);
+								</script>
+
+							</div>
+				</div><!--tweet_ana ends-->
+			</div><!-- content_inn ends-->
+		</div><!-- contents ends -->
+	</div><!-- left_content ends -->
+	
+	<div class="right_content">
+		<% if !@hash_detail.blank? %>
+			<div class="hash_user border">
+					<div class="heading heading_comm" style="width:100%;"><h3 class="right_title"><%= @hash %>'s Users</h3></div>
+
+					<% for hashdetail in @hash_detail %>
+							<% @usr_info = get_tweet_user(hashdetail.user) %>
+							<% if !@usr_info.blank? %>
+								<div class="usr_info">
+										<div class="top_usr_img">
+											<img src="<%=	@usr_info.profile_image_url	%>" border='0' width="40px" height="50px" />
+										</div>
+										<div class="top_usr_content">
+											<% if !@usr_info.screen_name.blank? %><div class="ur_name"><%= link_to @usr_info.name, user_detail_url(:user => @usr_info.screen_name) %></div><% end %>
+											<% if !@usr_info.location.blank? %><div>Location:&nbsp;<%= @usr_info.location %></div><% end %>								
+											<% if !@usr_info.followers.blank? %><div>Followers:&nbsp;<%= @usr_info.followers %></div><% end %>								
+											<% if !@usr_info.following.blank? %><div>Following:&nbsp;<%= @usr_info.following %></div><% else %><div>Following:&nbsp;0</div><% end %>								
+										</div>
+								</div>
+					<!--			<div class="border"></div>-->
+							<% end %>
+					<% end %>
+				</div><!-- border ends -->
+		<% end %>
+	</div><!-- right_content ends -->
+<!--</div>-->

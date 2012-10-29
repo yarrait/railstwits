@@ -1,0 +1,67 @@
+http://www.igvita.com/2007/01/05/dynamic-stat-graphs-in-rails/
+http://spreadsheets.about.com/od/excelcharts/tp/090828-excel-bar-graph-hub.htm
+http://www.visifire.com/
+http://www.idolhands.com/ruby-on-rails/gems-plugins-and-engines/graphing-for-ruby-on-rails-with-seer
+
+
+http://apiwiki.twitter.com/Twitter-Search-API-Method%3A-search
+
+Update: http://www.readwriteweb.com/archives/twitter_now_auto-parses_hashtags_urls_more.php
+http://github.com/dancroak/twitter-search -- used
+
+http://dev.twitter.com/doc/get/search
+http://twitter.rubyforge.org/
+http://mashable.com/2009/06/08/twitter-local-2/
+
+retweet concept --http://support.twitter.com/entries/13920-frequently-asked-questions
+
+for parsing:
+ http://github.com/mzsanford/twitter-text-rb
+
+compass framework
+http://github.com/chriseppstein/compass-960-plugin
+compass with sass:   http://compass-style.org/
+
+
+http://github.com/mzsanford/twitter-text-rb/blob/master/README.rdoc#readme
+
+implemented twitter-text:
+TWEET-- RT @headius: Great post on threads in Ruby (and especially JRuby) and why they're not evil unless you make them evil: http://is.gd/eci5S
+USERNAME:- headius
+AUTOLINK:--RT @<a class="tweet-url username" href="http://twitter.com/headius" rel="nofollow">headius</a>: Great post on threads in Ruby (and especially JRuby) and why they're not evil unless you make them evil: <a href="http://is.gd/eci5S" rel="nofollow">http://is.gd/eci5S</a>
+
+
+HTML PARSING:-
+http://nokogiri.rubyforge.org/nokogiri/Nokogiri.html
+http://ruby.about.com/od/gems/a/nokogiri.htm
+http://www.rubyinside.com/fast-html-parsing-in-ruby-with-hpricot-125.html
+http://www.sitepoint.com/blogs/2007/11/21/processing-html-with-hpricot/
+http://github.com/hpricot/hpricot
+
+Twitter parsing:
+http://ruby.about.com/od/networking/qt/twitterparse.htm
+
+INTRO TO TWITTER API::GET THE USER
+http://dev.twitter.com/doc
+http://www.slideshare.net/raffikrikorian/intro-to-developing-for-twitterapi
+
+BUNDLE the gems into your rails app:
+http://lindsaar.net/2010/2/6/bundle_me_some_rails (Use bundle init if you are getting Coudn't locate the gem file)
+http://yehudakatz.com/2010/02/09/using-bundler-in-real-life/
+
+for geokit:
+http://geokit.rubyforge.org/readme.html
+http://geokit.rubyforge.org/api/index.html
+http://github.com/andre/geokit-rails
+http://geokit.rubyforge.org/
+
+for the tag clouds:
+http://johannburkard.de/blog/programming/javascript/dynacloud-a-dynamic-javascript-tag-keyword-cloud-with-jquery.html
+http://code.google.com/p/jquery-tagcloud/wiki/APIDoc
+http://blog.jeremymartin.name/2008/03/efficient-tag-cloud-algorithm.html
+
+FETCH TWITTER USER WITHOUT AUTHENTICATION
+http://edendevelopment.co.uk/blogs/company/2009/02/26/twitter-integration-from-your-rails-app/
+
+TWITTER SEARCH WITH APPLICATION NAME
+http://robots.thoughtbot.com/post/159806535/ruby-wrapper-for-twitter-search-api

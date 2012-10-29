@@ -1,0 +1,186 @@
+	<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js" type="text/javascript"></script>-->
+    <script src="http://platform.twitter.com/anywhere.js?id=9SZ9z2BrciTnydrUgJfLqA&v=1" type="text/javascript"></script>
+<script type="text/javascript">
+  twttr.anywhere(function (T) {
+    T.hovercards({ expanded: true });
+  });
+</script>
+	<script src="/javascripts/jquery.js" type="text/javascript"></script>
+	<script src="/javascripts/jquery.flot.js" type="text/javascript"></script>
+	<script type="text/javascript" src="http://danvk.org/dygraphs/dygraph-combined.js"></script>
+	<script src="/javascripts/vtip-min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function(){
+			jQuery('#tweetid').click(function(){
+				jQuery(this).css({borderBottom:'1px solid #e1b378'});
+				jQuery('#tweet_contents').show();
+				jQuery('#analytics').css({borderBottom:'none'});
+				jQuery('#tweetid .heading h3').css({'color':'#000000','font-size':'18px'});
+				jQuery('#analytics .heading h3').css({'color':'#996633','font-size':'18px'});
+				jQuery('#analytics_contents').hide();
+			});
+			jQuery('#analytics').click(function(){
+				jQuery('#tweet_contents').hide();
+				jQuery('#tweetid').css({borderBottom:'none'});
+				jQuery('#analytics').css({borderBottom:'1px solid #e1b378'});
+				jQuery('#analytics .heading h3').css({'color':'#000000','font-size':'18px'});
+				jQuery('#tweetid .heading h3').css({'color':'#996633','font-size':'18px'});
+				jQuery('#analytics_contents').show();
+			});
+		});
+	</script>
+<!--<div class="middle_content">-->
+	<div class="left_content">
+		<div class="border contents">
+					<% if !@tweeturl.blank? %>
+					 <div class="url_inn_main">
+						<div class="heading heading_comm"><h2 class="title"><%= @tweeturl.url_title %></h2></div>
+						<%# for tweeturl in @tweet_urls %>
+							 <div class="url_heading"><div class="ur_title"><a href="<%= @tweeturl.original_url %>"><%= @tweeturl.url_title %></a></div></div>
+							<div class="url_inner_content">
+							<div class="url_inner_count">
+								<%= @tweeturl.counter %><br />
+				<script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+				<a href="http://twitter.com/share?url=http://www.railstwits.com/<%= @tweeturl.keyword_tweet_id %>/tweets&amp;text=<%=@tweeturl.url_title%>&amp;via=railstwits&amp;count=none" class="twitter-share-button">Tweet</a>
+							</div>
+							<div class="ur_contents">
+								<div class="ur_title">
+								</div>
+								<div class="ur_website_content">
+									<% @webid = KeywordWebsite.find_by_website(@tweeturl.url_website) %>
+									<span class="web_name"><%= link_to @tweeturl.url_website.upcase, website_detail_url(:id => @webid) %></span>&nbsp;-&nbsp;<% if !@tweeturl.url_content.blank? %><%= @tweeturl.url_content %><% else %><%= @tweeturl.url_title %><% end %>
+								</div>
+								<div class="ur_user">
+									<% @user = get_user_image(@tweeturl.keyword_tweet_id) %>
+									<% if !@user.blank? %>
+										<% @data = '' %>
+										<% @user_name = "<span style='font-weight:bold'>" + @user.screen_name.to_s + "</span><br />Location:" %>
+										<%# @user_des = @user.description.to_s + "<br />" %>
+										<% if !@user.location.blank? %>
+											<% @user_location = @user.location.to_s + "<br />Followers:" %>
+										<% else %>
+											<% @user_location = "Undefined<br />Followers:" %>
+										<% end %>
+										<% @usr_followers = @user.followers.to_s + "<br />" %>
+										<% @data += @user_name.to_s + @user_location.to_s + @usr_followers.to_s %>
+
+										<div>
+											<a href="/railstwits/user/<%=@user.screen_name%>" class='twitter-anywhere-user'><span class="usr_img"><img src="<%= @user.profile_image_url %>" border="0" width="25px"/></span>
+											<span class="posted">First Posted by:&nbsp;</span><span class="usr_name"><%= @tweeturl.keyword_tweet.user %></span></a>
+										</div><!-- vtip ends -->
+									<% end %>
+					
+									<% if !@user.blank? %>
+										<div class="url_follow">
+											<!--<span><%#= @user.followers %></span>&nbsp;followers<br />-->
+											<!--<a href = "http://www.twitter.com/<%= @user.screen_name %>">follow</a>-->
+										</div>
+									<% end %>
+									<% hashtag = get_hashtag(@tweeturl.keyword_tweet_id) %>
+									<% if !hashtag.blank? %>
+										<div class="url_inner_hashtag">
+											<span class="ur_hash">Tags:</span>&nbsp;
+											<% for hash in hashtag %>
+												<%= hash.hashtag %>&nbsp;
+											<% end %>
+										</div>								
+									<% end %>
+
+								</div>
+							</div>
+							</div> <!-- url content ends -->
+						<%# end %>
+					 </div> <!-- url main ends-->
+					<% end %>
+
+					<div class="tweet_ana_main">
+						<div class="tab_border"></div>
+						<div id="tweetid" style="float: left;cursor:pointer;width:15%;border-bottom:1px solid #e1b378;"><div class="heading tweet_ana"><h3 style="font-size:18px;color:#000000;">Tweets</h3></div></div>
+						<div class="part" style="float:left;"></div>
+						<div id="analytics" style="float: left; width: 17%;cursor:pointer;"><div class="heading tweet_ana"><h3 style="color:#996633;font-size:18px;">Analytics</h3></div></div>
+
+						<div id="tweet_contents">
+
+							<div class="url_inner_main">
+											<div class="url_content">
+											<% if !@tweeturl.blank? %>
+												<div class="user_img">
+													<%  @user_detail = get_tweet_user_detail(@tweeturl.keyword_tweet.id) %>
+													<% if !@user_detail.blank? %>
+														<a href="/railstwits/user/<%=@user_detail.screen_name%>"><span><img src="<%= @user_detail.profile_image_url %>" border="0" width="48px" height="48px" /></span></a>
+													<% else %>
+														<img src="/images/recent.jpg" border="0" height="40px" width="43px" />
+													<% end %>
+												</div>
+												<div class="user_text">
+													<% if !@user_detail.blank? %><a href="/railstwits/user/<%=@user_detail.screen_name%>" class='twitter-anywhere-user'><span class="user"><%= @tweeturl.keyword_tweet.user %></span></a><% else %><span class="user"><%= @tweeturl.keyword_tweet.user %></span><% end %>&nbsp;says:&nbsp;
+													<%= @tweeturl.keyword_tweet.tweet_text %>
+												</div>
+											<% else %>
+													no tweets for this url yet.
+											<% end %>
+											</div><!-- url_content ends -->
+							<% if !@all_urls.blank? %>
+										<% for ur in @all_urls %>
+											<div class="url_content">
+												<div class="user_img">
+													<%  @user_img1 = get_url_user(ur.user) %>
+													<% if !@user_img1.blank? %>
+														<a href="/railstwits/user/<%=@user_img1.screen_name%>"><span><img src="<%= @user_img1.profile_image_url %>" border="0" width="48px" height="48px"/></span></a>
+													<% else %>
+														<img src="/images/recent.jpg" border="0" height="40px" width="43px" />
+													<% end %>
+												</div>
+												<div class="user_text">
+													<% if !@user_img1.blank? %><a href="/railstwits/user/<%=@user_img1.screen_name%>" class='twitter-anywhere-user'><span class="user"><%= ur.user %></span></a><% else %> <span class="user"><%= ur.user %></span> <% end %>&nbsp;says:&nbsp;
+													<%= ur.text %>
+												</div>
+											</div><!-- url_content ends -->
+								<% end %>
+
+							<% else %>
+							<!--	No tweets yet for this url...-->
+							<% end %>
+							</div><!--url__inner_main ends-->
+							<div class="page">
+								<%= will_paginate @all_urls %>
+							</div>
+						</div><!-- tweet_contents id ends -->
+
+					<!--<div>-->
+						<div id="analytics_contents" style="display:none;">
+							<% if !@url_date.blank? %>
+								<div id="graphdiv" style="float:left;width:300px;height:200px;left:99px;"></div>
+							<script type="text/javascript">
+								g = new Dygraph(
+
+									// containing div
+									document.getElementById("graphdiv"),
+
+									// CSV or path to a CSV file.
+									"Date,Counter\n" +
+								
+									<% for ur in @url_date %>
+										<% a = ur.url_date.strftime('%d/%m') %>
+										"<%= ur.url_date %> , <%= ur.date_counter %>\n" +
+									<% end %>
+							<%# @last = @hashtag_date.first.hashtag_date %>
+									"<%= Date.tomorrow %>,0\n"
+								);
+							</script>
+						<% else %>
+							no analytics for this url yet.
+						<% end %>
+						</div><!--analytics id ends -->
+				</div><!-- tweet_ana div ends-->
+	</div><!-- urlinner border main-->
+	</div> <!-- left_content ends -->
+					<div class="right_content">
+							<%= render :partial => '/home/home_rightframe' %>	
+							<%= render :partial => '/home/hashtags' %>	
+					</div>
+
+	
+
+
+<!--</div> middle_content ends -->

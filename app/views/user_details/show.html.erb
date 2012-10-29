@@ -1,0 +1,58 @@
+<p>
+  <b>Keyword:</b>
+  <%=h @user_detail.keyword_id %>
+</p>
+
+<p>
+  <b>Keyword tweet:</b>
+  <%=h @user_detail.keyword_tweet_id %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%=h @user_detail.name %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%=h @user_detail.location %>
+</p>
+
+<p>
+  <b>User created at:</b>
+  <%=h @user_detail.user_created_at %>
+</p>
+
+<p>
+  <b>Profile image url:</b>
+  <%=h @user_detail.profile_image_url %>
+</p>
+
+<p>
+  <b>Web url:</b>
+  <%=h @user_detail.web_url %>
+</p>
+
+<p>
+  <b>Followers:</b>
+  <%=h @user_detail.followers %>
+</p>
+
+<p>
+  <b>Following:</b>
+  <%=h @user_detail.following %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @user_detail.description %>
+</p>
+
+<p>
+  <b>Screen name:</b>
+  <%=h @user_detail.screen_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_detail_path(@user_detail) %> |
+<%= link_to 'Back', user_details_path %>

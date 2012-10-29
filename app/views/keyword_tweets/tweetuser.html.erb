@@ -1,0 +1,58 @@
+    <script src="http://platform.twitter.com/anywhere.js?id=9SZ9z2BrciTnydrUgJfLqA&v=1" type="text/javascript"></script>
+<script type="text/javascript">
+  twttr.anywhere(function (T) {
+    T.hovercards({ expanded: true });
+  });
+</script>
+<!--<div class="middle_content">-->
+	<div class="left_content">
+		<% if !@users.blank? %>
+			<div class="contents border">
+				<div class="heading_main">
+					<div class="heading heading_comm" style="width:100%;"><h2 class="title">The most popular Twitter Users</h2></div><br />
+					<span class="rank_heading">Ranked by ruby on rails related tweets and refreshed daily.</span>			
+				</div>
+				<div class="content_inn" style="padding:10px;width:97;">
+					<% @count = 1 %>
+					<% for user in @users %>
+						<% @user_info = get_user_image(user.keyword_tweet_id) %>
+						<% if !@user_info.blank? %>
+								<div class="user_info">
+									<div class="rank_name">
+										<div class="rank"><%= @count %></div>
+									</div><!-- rank_name ends -->
+									<div class="detail">
+										<div class="name"><%= link_to @user_info.screen_name, user_detail_url(:user => @user_info.screen_name),:class => 'twitter-anywhere-user' %></div>
+										<div class="img"><img src="<%= @user_info.profile_image_url %>" border = "0" width="50px" height="55px" /></div>
+										<div class="description"><% if !@user_info.description.blank? %><%= @user_info.description %><% end %></div>
+									</div><!-- detail ends -->
+									<div class="right">
+										<div class="tweets">
+											<span><%= user.counter %></span><br />
+											tweets
+										</div>
+										<div class="tweets">
+											<span><%= @user_info.followers %></span><br />
+											followers
+										</div>
+										<div class="tweets">
+											<span><%= @user_info.following %></span><br />
+											following
+										</div>
+									</div><!-- right ends -->
+									<div class="tweets_main">
+						
+									</div>
+								</div>
+						<% @count += 1 %>
+						<% end %><!-- if ends -->
+					<% end %>
+				</div>
+			</div>
+		<% end %>
+	</div><!-- left_content ends -->
+					<div class="right_content">
+							<%= render :partial => '/home/home_rightframe' %>	
+							<%= render :partial => '/home/hashtags' %>	
+					</div>
+<!--</div> middle_content ends -->

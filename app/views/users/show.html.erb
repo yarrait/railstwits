@@ -1,0 +1,51 @@
+<%= link_to 'Add keyword', :controller => 'keywords', :action => 'new' %><br />
+<%= link_to 'Add spam user', :controller => 'userblocks', :action => 'new' %>
+
+
+<% if !@keywords.blank? %>
+	<p>Listing keywords</p>
+
+	<table>
+	  <tr>
+	    <th>Name</th>
+	  </tr>
+
+	<% @keywords.each do |keyword| %>
+	  <tr>
+	    <td><%=h keyword.name %></td>
+	    <td><%= link_to 'Show', keyword %></td>
+	    <td><%= link_to 'Edit', edit_keyword_path(keyword) %></td>
+	    <td><%= link_to 'Destroy', keyword, :confirm => 'Are you sure?', :method => :delete %></td>
+	  </tr>
+	<% end %>
+	</table>
+
+	<br />
+<% else %>
+	No Keywords are entered yet.
+<% end %>
+
+<% if !@userblocks.blank? %>
+	<p>Listing Spam users</p>
+
+	<table>
+		<tr>
+		  <th>Name</th>
+		</tr>
+
+	<% @userblocks.each do |userblock| %>
+		<tr>
+		  <td><%=h userblock.name %></td>
+		  <td><%= link_to 'Show', userblock %></td>
+		  <td><%= link_to 'Edit', edit_userblock_path(userblock) %></td>
+		  <td><%= link_to 'Destroy', userblock, :confirm => 'Are you sure?', :method => :delete %></td>
+		</tr>
+	<% end %>
+	</table>
+
+	<br />
+
+	<%#= link_to 'New userblock', new_userblock_path %>
+<% end %>
+
+

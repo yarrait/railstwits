@@ -1,0 +1,116 @@
+<!-- <div class="right_content"> -->
+    <script src="http://platform.twitter.com/anywhere.js?id=9SZ9z2BrciTnydrUgJfLqA&v=1" type="text/javascript"></script>
+<script type="text/javascript">
+  twttr.anywhere(function (T) {
+    T.hovercards({ expanded: true });
+  });
+</script>
+		<% if !@websites.blank? %>
+			<% @w = 0 %>
+			<% @web_arr = [] %>
+			<% for web in @websites %>
+				<% @web = get_top_website(web.keyword_tweet_id) %>
+				<% if !@web.blank? %>
+					<% @web_arr[@w] = @web %>
+					<% @w += 1 %>
+				<% end %>
+			<% end %>
+			<% if @web_arr.length != 0 %>
+				<div class="top_website border">
+								<div class="heading_comm heading" style="width:100%;">
+									<!--<span>Last 24 hours</span><br />-->
+									<div class="right_title">Top Twitter Websites</div>
+								</div>
+								<div class="web_main">
+									<% @x = 0 %>
+									<% @rank = 1 %>
+									<% while @x < @web_arr.length %>
+										<div class="web_info">
+											<% @web_info = get_top_website_info(@web_arr[@x]) %>
+											<% if !@web_info.blank? %>
+												<div class="web_img">												
+													<% @user = get_user_image(@web_info.keyword_tweet_id) %>
+															<% if !@user.blank? %>
+																<a href="/railstwits/user/<%=@user.screen_name%>" class='twitter-anywhere-user'><span class="usr_img"><img src="<%= @user.profile_image_url %>" border="0" width="25px"/></span>
+															<% else %>
+																<img src="/images/recent.jpg" border="0" height="40px" width="43px" />
+															<% end %>
+												</div>
+												<%#= @web_info.id %>
+												<!--	<div class="web_rank">
+													<%#= @rank %>
+												</div>-->
+											<div class="web_contents">
+												<div class="web_content">
+													<% @website = get_website(@web_info.id) %>
+													<span><%= link_to @web_info.url_website.upcase, website_detail_url(:id => @website.id) %></span>&nbsp;-&nbsp;<% if !@web_info.url_content.blank? %><%= @web_info.url_content.to_s[1..100] %><% else %><%= @web_info.url_title %><% end %>
+												</div>
+												<div class="web_count">
+													<%= link_to @website.counter.to_s + "&nbsp;tweets", website_detail_url(:id => @website.id) %>
+												</div>
+											</div>
+												<% @rank += 1 %>
+											<% end %>
+											<% @x += 1 %>
+										</div><!-- web_info ends -->
+										<!--<div class="border"></div>-->
+									<% end %>
+								</div><!-- web_main ends -->
+								<div class="viewall">
+									<%= link_to 'View all&nbsp;&raquo;', websites_url %>
+								</div>
+					</div>				<!-- top_website ends -->
+			<% end %>
+		<% end %>
+
+
+
+		<% if !@user_count.blank? %>
+			<% @i = 0 %>
+					<% @usr_arr = [] %>
+	  	<div class="user_main border">
+				<% for user in @user_count %>	
+					<% @usr = get_top_user(user) %>
+					<% if !@usr.blank? %>
+						<% @usr_arr[@i] = @usr %>
+						<% @i += 1 %>
+					<% end %>
+				<% end %>
+
+				<% if @usr_arr.length != 0 %>
+				<%#= @usr_arr %>
+				<%#= @usr_arr.length %>
+				<div class="heading_comm heading" style="width:100%;">
+					<!--<span>Last 24 hours</span><br />-->
+					<div class="right_title">Top Twitter Users</div>
+				</div>
+					<% @j = 0 %>
+					<% while @j < @usr_arr.length %>
+						<%#= @usr_arr[@j] %>
+						<% @usr_info = get_top_user_info(@usr_arr[@j]) %>
+							<% if !@usr_info.blank? %>
+								<div class="usr_info">
+										<div class="top_usr_img">
+											<img src="<%=	@usr_info.profile_image_url	%>" border='0' width="48px" height="48px" />
+										</div>
+										<div class="top_usr_content">
+											<% if !@usr_info.screen_name.blank? %><div class="ur_name"><%= link_to @usr_info.screen_name, user_detail_url(:user => @usr_info.screen_name),:class => 'twitter-anywhere-user' %></div><% end %>
+											<% if !@usr_info.location.blank? %><div>Location:&nbsp;<%= @usr_info.location %></div><% end %>								
+											<% if !@usr_info.followers.blank? %><div>Followers:&nbsp;<%= @usr_info.followers %></div><% end %>								
+											<% if !@usr_info.following.blank? %><div>Following:&nbsp;<%= @usr_info.following %></div><% else %><div>Following:&nbsp;0</div><% end %>								
+										</div>
+								</div>
+						<!--<div class="border"></div>-->
+							<% end %>
+								<% @j += 1 %>
+
+
+					<% end %>
+				<% end %>
+				<div class="viewall">
+						<%= link_to 'View all&nbsp;&raquo;', tweetuser_url %>
+				</div>
+			</div>
+    <% end %>
+
+  <!--</div> right_content ends -->

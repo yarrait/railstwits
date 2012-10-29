@@ -1,0 +1,16 @@
+<h1>Editing userblock</h1>
+
+<% form_for(@userblock) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @userblock %> |
+<%= link_to 'Back', userblocks_path %>

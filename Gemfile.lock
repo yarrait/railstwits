@@ -1,0 +1,79 @@
+--- 
+dependencies: 
+  expurrel: 
+    group: 
+    - :default
+    version: ">= 0"
+  rails: 
+    group: 
+    - :default
+    version: = 2.3.2
+  twitter-text: 
+    group: 
+    - :default
+    version: ">= 0"
+  twitter4r: 
+    group: 
+    - :default
+    version: ">= 0"
+  longurl: 
+    group: 
+    - :default
+    version: ">= 0"
+  hpricot: 
+    group: 
+    - :default
+    version: ">= 0"
+  nokogiri: 
+    group: 
+    - :default
+    version: ">= 0"
+  twitter: 
+    group: 
+    - :default
+    version: ">= 0"
+specs: 
+- rake: 
+    version: 0.8.7
+- activesupport: 
+    version: 2.3.2
+- actionpack: 
+    version: 2.3.2
+- actionmailer: 
+    version: 2.3.2
+- activerecord: 
+    version: 2.3.2
+- activeresource: 
+    version: 2.3.2
+- crack: 
+    version: 0.1.4
+- expurrel: 
+    version: 0.2.0
+- hashie: 
+    version: 0.1.5
+- hpricot: 
+    version: 0.8.2
+- httparty: 
+    version: 0.4.3
+- json: 
+    version: 1.4.3
+- longurl: 
+    version: 0.1.6
+- nokogiri: 
+    version: 1.4.3.1
+- ruby-hmac: 
+    version: 0.4.0
+- oauth: 
+    version: 0.3.6
+- rails: 
+    version: 2.3.2
+- twitter: 
+    version: 0.7.9
+- twitter-text: 
+    version: 1.1.6
+- twitter4r: 
+    version: 0.3.2
+hash: 7d588b0a8904f0c8f8df278e0e8811af49cb2530
+sources: 
+- Rubygems: 
+    uri: http://gemcutter.org

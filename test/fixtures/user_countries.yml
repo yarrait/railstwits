@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  keyword_user_id: 1
+  country: MyString
+  address: MyString
+
+two:
+  keyword_user_id: 1
+  country: MyString
+  address: MyString

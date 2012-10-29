@@ -1,0 +1,43 @@
+<p>
+  <b>Keyword:</b>
+  <%=h @keyword_tweet.keyword_id %>
+</p>
+
+<p>
+  <b>Tweet text:</b>
+  <%=h @keyword_tweet.tweet_text %>
+</p>
+
+<p>
+  <b>Tweet:</b>
+  <%=h @keyword_tweet.tweet_id %>
+</p>
+
+<p>
+  <b>Source:</b>
+  <%=h @keyword_tweet.source %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @keyword_tweet.user %>
+</p>
+
+<p>
+  <b>Created at:</b>
+  <%=h @keyword_tweet.created_at %>
+</p>
+
+<p>
+  <b>Tinyurl:</b>
+  <%=h @keyword_tweet.tinyurl %>
+</p>
+
+<p>
+  <b>Original url:</b>
+  <%=h @keyword_tweet.original_url %>
+</p>
+
+
+<%= link_to 'Edit', edit_keyword_tweet_path(@keyword_tweet) %> |
+<%= link_to 'Back', keyword_tweets_path %>

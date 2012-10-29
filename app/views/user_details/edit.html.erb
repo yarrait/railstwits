@@ -1,0 +1,56 @@
+<h1>Editing user_detail</h1>
+
+<% form_for(@user_detail) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :keyword_id %><br />
+    <%= f.text_field :keyword_id %>
+  </p>
+  <p>
+    <%= f.label :keyword_tweet_id %><br />
+    <%= f.text_field :keyword_tweet_id %>
+  </p>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :location %><br />
+    <%= f.text_field :location %>
+  </p>
+  <p>
+    <%= f.label :user_created_at %><br />
+    <%= f.date_select :user_created_at %>
+  </p>
+  <p>
+    <%= f.label :profile_image_url %><br />
+    <%= f.text_area :profile_image_url %>
+  </p>
+  <p>
+    <%= f.label :web_url %><br />
+    <%= f.text_area :web_url %>
+  </p>
+  <p>
+    <%= f.label :followers %><br />
+    <%= f.text_field :followers %>
+  </p>
+  <p>
+    <%= f.label :following %><br />
+    <%= f.text_field :following %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.label :screen_name %><br />
+    <%= f.text_field :screen_name %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @user_detail %> |
+<%= link_to 'Back', user_details_path %>
